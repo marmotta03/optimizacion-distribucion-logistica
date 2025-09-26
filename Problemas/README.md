@@ -27,11 +27,29 @@ Para abordar el problema integrado de asignación y ruteo, se plantea la siguien
 
 ------------------------------------------
 
-(*) Costo de asignación:
-De manera directa, según el enunciado
-(**) Costo de ruteo
-Para tener en cuenta las distancias recorridas por los camiones y elegir opciones que requieran tener a los camiones menos tiempo trabajando, consideramos:
-- Costo de ruteo = sumatoria(nodos y service center) costo origen
-- Costo de origen = Costo de camion * cantidad de camiones + costo variable de camion * cantidad de paquetes + distancias recorridas * 0.5
+### Definición de costos
 
-Una observación importante es que como consideramos más importante la baja en gastos de contratación de camiones (que hacer menos distancia), vamos a pasarle al optimizador de CVRP de OR-Tools, la menor cantidad de camiones que sabemos que pueden cubrir la demanda desde el origen. Esto es: roof(cantidad de paquetes asignados al origen / capacidad del camion)
+#### (*) Costo de asignación
+Se calcula de manera directa, según lo indicado en el enunciado.
+
+#### (**) Costo de ruteo
+Este costo contempla las distancias recorridas por los camiones y busca elegir soluciones que reduzcan el tiempo de trabajo de los mismos.  
+
+La fórmula general es:
+
+- **Costo de ruteo** = ∑ (nodos y service centers) **costo origen**
+- **Costo de origen** =  
+  - (Costo fijo por camión) × (Cantidad de camiones)  
+  + (Costo variable por camión) × (Cantidad de paquetes)  
+  + (Distancia total recorrida) × 0.5
+
+---
+
+#### Observación importante
+Dado que consideramos **más relevante minimizar los gastos de contratación de camiones** (por sobre la minimización de la distancia recorrida), al optimizador de CVRP de OR-Tools se le pasa la menor cantidad de camiones que sabemos que pueden cubrir la demanda desde el origen.  
+
+Es decir:
+
+\[
+\text{Cantidad mínima de camiones} = \left\lceil \frac{\text{Paquetes asignados al origen}}{\text{Capacidad del camión}} \right\rceil
+\]
