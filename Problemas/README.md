@@ -50,6 +50,7 @@ Dado que consideramos **más relevante minimizar los gastos de contratación de 
 
 Es decir:
 
-\[
+$$
 \text{Cantidad mínima de camiones} = \left\lceil \frac{\text{Paquetes asignados al origen}}{\text{Capacidad del camión}} \right\rceil
-\]
+$$
+
